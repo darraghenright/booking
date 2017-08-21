@@ -1,7 +1,17 @@
 <script>
 
 export default {
-  props: ['date']
+  props: ['date'],
+  computed: {
+    slots () {
+      return this.$store.getters.slots(this.date)
+    }
+  },
+  methods: {
+    bookSlot (id) {
+      alert('@TODO trigger websocket update')
+    }
+  }
 }
 
 </script>
@@ -9,6 +19,11 @@ export default {
 <template>
   <div>
     <h2>Slots for {{ date }}</h2>
+
+    <button v-for="slot in slots" v-if="!slot.is_booked" @click="bookSlot(slot.id)">
+      {{ slot.time }}
+    </button>
+
     <router-link to="/" class="btn btn-default">
       Back to schedule
     </router-link>
