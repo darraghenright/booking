@@ -20,7 +20,10 @@ export default {
   <div>
     <h2>Slots for {{ date }}</h2>
 
-    <button v-for="slot in slots" v-if="!slot.is_booked" @click="bookSlot(slot.id)">
+    <button v-for="slot in slots"
+            v-if="!slot.is_booked"
+            @click="bookSlot(slot.id)"
+            class="btn btn-default">
       {{ slot.time }}
     </button>
 

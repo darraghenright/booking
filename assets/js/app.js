@@ -1,5 +1,5 @@
 import 'phoenix_html'
-// import socket from './socket'
+import socket from './socket'
 
 import Vue       from 'vue'
 import Vuex      from 'vuex'
@@ -12,7 +12,31 @@ import Slots     from './components/Slots.vue'
 Vue.use(Vuex)
 Vue.use(VueRouter)
 
+
+// WIP
+
+const channel = socket.channel('schedule', {});
+
+channel.join()
+  .receive('error', () => console.log('Unable to join'))
+  .receive('ok',    () => console.log('Joined'))
+
+channel.on('slot_booked', data => {
+  console.log('slot_booked', data)
+})
+
+channel.push('book_slot', { id: 1 })
+
+//
+
+const websocketSync = store => {
+  store.subscribe((mutation, state) => {
+    // @TODO
+  })
+}
+
 const store = new Vuex.Store({
+  plugins: [websocketSync],
   state: {
     days: [
       {

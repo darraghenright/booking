@@ -2,7 +2,7 @@ defmodule BookingWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", BookingWeb.RoomChannel
+  channel "schedule", BookingWeb.ScheduleChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
