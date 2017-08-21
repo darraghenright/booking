@@ -36,6 +36,7 @@ export default {
 
 <template>
   <div>
+    <h2>Schedule</h2>
     <day v-for="day in days" v-bind:day="day"></day>
   </div>
 </template>
