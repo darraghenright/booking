@@ -1,0 +1,23 @@
+<h2>Show Slot</h2>
+
+<ul>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @slot.email %>
+  </li>
+
+  <li>
+    <strong>Is booked:</strong>
+    <%= @slot.is_booked %>
+  </li>
+
+  <li>
+    <strong>Time:</strong>
+    <%= @slot.time %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: slot_path(@conn, :edit, @slot) %></span>
+<span><%= link "Back", to: slot_path(@conn, :index) %></span>

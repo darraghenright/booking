@@ -52,7 +52,7 @@ config :phoenix, :stacktrace_depth, 20
 config :booking, Booking.Repo,
   adapter: Ecto.Adapters.MySQL,
   username: "root",
-  password: "",
+  password: "test",
   database: "booking_dev",
   hostname: "localhost",
   pool_size: 10

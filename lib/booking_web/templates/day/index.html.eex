@@ -1,0 +1,28 @@
+<h2>Listing Days</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Has slots</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for day <- @days do %>
+    <tr>
+      <td><%= day.date %></td>
+      <td><%= day.has_slots %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: day_path(@conn, :show, day), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: day_path(@conn, :edit, day), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: day_path(@conn, :delete, day), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Day", to: day_path(@conn, :new) %></span>

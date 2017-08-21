@@ -1,0 +1,18 @@
+<h2>Show Day</h2>
+
+<ul>
+
+  <li>
+    <strong>Date:</strong>
+    <%= @day.date %>
+  </li>
+
+  <li>
+    <strong>Has slots:</strong>
+    <%= @day.has_slots %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: day_path(@conn, :edit, @day) %></span>
+<span><%= link "Back", to: day_path(@conn, :index) %></span>
