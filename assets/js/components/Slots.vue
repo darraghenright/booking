@@ -6,5 +6,9 @@ export default {
 </script>
 
 <template>
-  <div>slots</div>
+  <div>
+    <router-link to="/" class="btn btn-default">
+      Back to schedule
+    </router-link>
+  </div>
 </template>

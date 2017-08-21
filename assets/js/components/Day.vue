@@ -1,13 +1,20 @@
 <script>
 
 export default {
-  props: ['day']
+  props: ['day'],
+  methods: {
+    route: ({date}) => ({ name: 'slots',  params: { date: date } })
+  }
 }
 
 </script>
 
 <template>
-  <button class="btn btn-default" v-bind:disabled="!day.has_slots">
-    {{ day.date }}
-  </button>
+
+  <div>
+    <router-link :to="route(day)">
+      {{ day.date }}
+    </router-link>
+  </div>
+
 </template>

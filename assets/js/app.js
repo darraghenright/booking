@@ -3,6 +3,7 @@ import 'phoenix_html'
 
 import Vue       from 'vue'
 import VueRouter from 'vue-router'
+import Booking   from './components/Booking.vue'
 import Schedule  from './components/Schedule.vue'
 import Slots     from './components/Slots.vue'
 
@@ -11,7 +12,7 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   routes: [
     {
-      path: '/:date/slots',
+      path: '/slots/:date',
       name: 'slots',
       props: true,
       component: Slots
@@ -25,6 +26,6 @@ const router = new VueRouter({
 
 new Vue({
   el: '#app',
-  render: h => h(Schedule),
+  render: h => h(Booking),
   router
 });
