@@ -3,6 +3,7 @@ defmodule Booking.Schedule.Slot do
   import Ecto.Changeset
   alias Booking.Schedule.{Day, Slot}
 
+  @derive {Poison.Encoder, only: [:id, :time, :is_booked]}
 
   schema "slots" do
     field :email, :string

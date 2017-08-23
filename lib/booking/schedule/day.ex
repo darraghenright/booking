@@ -3,6 +3,7 @@ defmodule Booking.Schedule.Day do
   import Ecto.Changeset
   alias Booking.Schedule.{Day, Slot}
 
+  @derive {Poison.Encoder, only: [:id, :date, :has_slots, :slots]}
 
   schema "days" do
     field :date, :date

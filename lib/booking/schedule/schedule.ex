@@ -18,7 +18,26 @@ defmodule Booking.Schedule do
 
   """
   def list_days do
-    Repo.all(Day)
+    Day
+    |> Repo.all()
+    |> Repo.preload(:slots)
+    |> Enum.map(&calculate_has_slots/1)
+  end
+
+  @doc """
+  Calculates and adds `has_slots`
+  property to Day struct
+
+  ## Examples
+
+      iex> day |> calculate_has_slots()
+      %Day{}
+
+  """
+  def calculate_has_slots(day) do
+    %{day | has_slots: Enum.any?(day.slots, fn slot ->
+      !slot.is_booked
+    end)}
   end
 
   @doc """

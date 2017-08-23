@@ -13,56 +13,38 @@ Vue.use(Vuex)
 Vue.use(VueRouter)
 
 
-// WIP
+
 
 const channel = socket.channel('schedule', {});
 
-channel.join()
-  .receive('error', () => console.log('Unable to join'))
-  .receive('ok',    () => console.log('Joined'))
-
-channel.on('slot_booked', data => {
-  console.log('slot_booked', data)
-})
-
-channel.push('book_slot', { id: 1 })
-
-//
-
 const websocketSync = store => {
+  channel.join()
+    .receive('error', () => console.log('Unable to join'))
+    .receive('ok', r => store.commit('update', JSON.parse(r.days)))
+
   store.subscribe((mutation, state) => {
-    // @TODO
+    console.log('subscribe')
   })
 }
 
 const store = new Vuex.Store({
   plugins: [websocketSync],
   state: {
-    days: [
-      {
-        id: 1,
-        date: '2017-09-07',
-        has_slots: true,
-        slots: [
-          { id: 1, time: '10:00', is_booked: true },
-          { id: 2, time: '10:20', is_booked: false },
-          { id: 3, time: '10:40', is_booked: false }
-        ]
-      },
-      {
-        id: 2,
-        date: '2017-09-08',
-        has_slots: false,
-        slots: [
-          { id: 4, time: '10:00', is_booked: true },
-          { id: 5, time: '10:20', is_booked: true },
-          { id: 6, time: '10:40', is_booked: false }
-        ]
-      }
-    ]
+    days: []
+  },
+  actions: {
+    bookSlot (commit, id) {
+      channel.push('book_slot', { id: id })
+    }
+  },
+  mutations: {
+    update (state, days) {
+      console.log(days)
+      state.days = days
+    }
   },
   getters: {
-    days:  (state) => state.days.map(({date, has_slots}) => ({date, has_slots})),
+    days: (state) => state.days.map(({date, has_slots}) => ({date, has_slots})),
     slots: (state) => (date) => {
       for (let day of state.days) {
         if (date === day.date) {

@@ -9,7 +9,7 @@ export default {
   },
   methods: {
     bookSlot (id) {
-      alert('@TODO trigger websocket update')
+      this.$store.dispatch('bookSlot', id)
     }
   }
 }

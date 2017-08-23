@@ -1,9 +1,11 @@
 defmodule BookingWeb.ScheduleChannel do
   use Phoenix.Channel
-  alias Booking.Showings
+
+  alias Booking.Schedule
 
   def join("schedule", _message, socket) do
-    {:ok, socket}
+    reply = %{days: Poison.encode!(Schedule.list_days)}
+    {:ok, reply, socket}
   end
 
   def handle_in("book_slot", %{"id" => id}, socket) do
