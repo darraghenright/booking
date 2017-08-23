@@ -9,7 +9,7 @@ export default {
   },
   methods: {
     bookSlot (id) {
-      this.$store.dispatch('bookSlot', id)
+      this.$store.dispatch('bookSlot', {slot_id: id, email: 'dev@merchkitty.com'})
     }
   }
 }
@@ -25,7 +25,7 @@ export default {
     <table class="table table-hover">
       <tbody>
         <tr v-if="!slot.is_booked" v-for="slot in slots">
-          <td>{{ humanTime(slot) }}</td>
+          <td>{{ slot.time }}</td>
           <td>
             <button @click="bookSlot(slot.id)" class="btn btn-success btn-sm">
               Request booking

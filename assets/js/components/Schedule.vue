@@ -3,6 +3,9 @@
 import Day from './Day.vue'
 
 export default {
+  mounted () {
+    this.$store.dispatch('updateDays')
+  },
   components: {
     Day
   },

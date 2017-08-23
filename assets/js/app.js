@@ -12,34 +12,33 @@ import Slots     from './components/Slots.vue'
 Vue.use(Vuex)
 Vue.use(VueRouter)
 
+const schedule = socket.channel('schedule', {});
 
-
-
-const channel = socket.channel('schedule', {});
-
-const websocketSync = store => {
-  channel.join()
-    .receive('error', () => console.log('Unable to join'))
-    .receive('ok', r => store.commit('update', JSON.parse(r.days)))
-
-  store.subscribe((mutation, state) => {
-    console.log('subscribe')
-  })
-}
+schedule.join()
+  .receive('error', () => console.log('[schedule] error'))
+  .receive('ok',    () => console.log('[schedule] ok'))
 
 const store = new Vuex.Store({
-  plugins: [websocketSync],
   state: {
     days: []
   },
   actions: {
-    bookSlot (commit, id) {
-      channel.push('book_slot', { id: id })
+    updateDays (context) {
+      schedule.push('update_days')
+      schedule.on('update_days', data => {
+        try {
+          context.commit('updateDays', JSON.parse(data.days))
+        } catch (e) {
+          window.alert('Error updating data!')
+        }
+      });
+    },
+    bookSlot (context, slot) {
+      schedule.push('book_slot', slot)
     }
   },
   mutations: {
-    update (state, days) {
-      console.log(days)
+    updateDays (state, days) {
       state.days = days
     }
   },
