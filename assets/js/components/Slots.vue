@@ -19,16 +19,20 @@ export default {
 <template>
   <div>
     <h2>Slots for {{ date }}</h2>
-
-    <button v-for="slot in slots"
-            v-if="!slot.is_booked"
-            @click="bookSlot(slot.id)"
-            class="btn btn-default">
-      {{ slot.time }}
-    </button>
-
     <router-link to="/" class="btn btn-default">
       Back to schedule
     </router-link>
+    <table class="table table-hover">
+      <tbody>
+        <tr v-if="!slot.is_booked" v-for="slot in slots">
+          <td>{{ humanTime(slot) }}</td>
+          <td>
+            <button @click="bookSlot(slot.id)" class="btn btn-success btn-sm">
+              Request booking
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
