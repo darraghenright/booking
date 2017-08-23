@@ -8,8 +8,7 @@ defmodule BookingWeb.ScheduleChannel do
   end
 
   def handle_in("update_days", _message, socket) do
-    json = %{days: Poison.encode!(Schedule.list_days)}
-    broadcast! socket, "update_days", json
+    broadcast! socket, "update_days", %{days: Poison.encode!(Schedule.list_days)}
     {:noreply, socket}
   end
 
@@ -17,13 +16,12 @@ defmodule BookingWeb.ScheduleChannel do
 
     # @TODO chain handler here - remove redunancy
     # transmit error state to client
-    
+
     slot  = Schedule.get_slot!(slot_id)
     attrs = %{is_booked: true, email: email}
-    json  = %{days: Poison.encode!(Schedule.list_days)}
 
     case Schedule.update_slot(slot, attrs) do
-      {:ok, _slot} -> broadcast! socket, "update_days", json
+      {:ok, _slot} -> broadcast! socket, "update_days", %{days: Poison.encode!(Schedule.list_days)}
       {:error, changeset} -> IO.puts "error: #{inspect changeset}"
     end
 
