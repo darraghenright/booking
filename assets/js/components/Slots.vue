@@ -30,6 +30,12 @@ export default {
       Back to schedule
     </router-link>
     <table class="table table-hover">
+      <thead>
+        <tr>
+          <th style="width: 50%">Times</th>
+          <th>Availablity</th>
+        </tr>
+      </thead>
       <tbody>
         <tr v-for="slot in slots">
           <td>{{ humanTime(slot) }}</td>

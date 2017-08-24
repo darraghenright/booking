@@ -33,7 +33,7 @@ export default {
       <div class="form-inline">
         <div class="form-group">
           <label for="email" class="sr-only">Email</label>
-          <input type="email" class="form-control" placeholder="Your email" v-model="email">
+          <input type="email" class="form-control" placeholder="Enter your email" v-model="email">
         </div>
         <button type="button" @click="bookSlot" class="btn btn-success" :disabled="!email">
           Book
