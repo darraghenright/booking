@@ -11,6 +11,9 @@ export default {
     slots () {
       return this.$store.getters.slots(this.date)
     }
+  },
+  methods: {
+    humanTime: ({time}) => time.split(':').slice(0,2).join(':') // :P
   }
 }
 
@@ -25,7 +28,7 @@ export default {
     <table class="table table-hover">
       <tbody>
         <tr v-for="slot in slots">
-          <td>{{ slot.time }}</td>
+          <td>{{ humanTime(slot) }}</td>
           <td>
             <book-slot v-if="!slot.is_booked" v-bind:slot_id="slot.id"></book-slot>
             <span v-else class="text-muted">Booked</span>
