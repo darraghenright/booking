@@ -1,5 +1,6 @@
 <script>
 
+import moment from 'moment'
 import BookSlot from './BookSlot.vue'
 
 export default {
@@ -8,6 +9,9 @@ export default {
     BookSlot
   },
   computed: {
+    humanDate () {
+      return moment(this.date).format('ddd Do MMMM')
+    },
     slots () {
       return this.$store.getters.slots(this.date)
     }
@@ -21,7 +25,7 @@ export default {
 
 <template>
   <div>
-    <h2>Slots for {{ date }}</h2>
+    <h2>Available Slots for {{ humanDate }}</h2>
     <router-link to="/" class="btn btn-default">
       Back to schedule
     </router-link>
