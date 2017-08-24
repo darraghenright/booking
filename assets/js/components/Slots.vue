@@ -1,15 +1,15 @@
 <script>
 
+import BookSlot from './BookSlot.vue'
+
 export default {
   props: ['date'],
+  components: {
+    BookSlot
+  },
   computed: {
     slots () {
       return this.$store.getters.slots(this.date)
-    }
-  },
-  methods: {
-    bookSlot (id) {
-      this.$store.dispatch('bookSlot', {slot_id: id, email: 'dev@merchkitty.com'})
     }
   }
 }
@@ -24,12 +24,11 @@ export default {
     </router-link>
     <table class="table table-hover">
       <tbody>
-        <tr v-if="!slot.is_booked" v-for="slot in slots">
+        <tr v-for="slot in slots">
           <td>{{ slot.time }}</td>
           <td>
-            <button @click="bookSlot(slot.id)" class="btn btn-success btn-sm">
-              Request booking
-            </button>
+            <book-slot v-if="!slot.is_booked" v-bind:slot_id="slot.id"></book-slot>
+            <span v-else class="text-muted">Booked</span>
           </td>
         </tr>
       </tbody>
