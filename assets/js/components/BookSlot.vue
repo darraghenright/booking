@@ -46,7 +46,7 @@ export default {
       <small class="text-muted">For confirmation only. Your email won't be shared or used for any other purpose.</small>
     </div>
     <button v-else type="button" name="button" class="btn btn-info btn-sm" @click="startBooking">
-      Request Booking
+      <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Request this time
     </button>
   </div>
 </template>

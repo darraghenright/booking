@@ -12,9 +12,9 @@
   </head>
   <body>
     <div class="container">
-      <header>
+      <!-- <header>
         <h1>Booking</h1>
-      </header>
+      </header> -->
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>

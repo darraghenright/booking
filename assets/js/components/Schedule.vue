@@ -11,3 +11,10 @@ export default {
 <template>
   <router-view></router-view>
 </template>
+
+<style>
+
+.table td {
+  width: 50%;
+}
+</style>

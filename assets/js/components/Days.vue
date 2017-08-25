@@ -20,12 +20,6 @@ export default {
   <div>
     <h2>September Schedule</h2>
     <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Availablility</th>
-        </tr>
-      </thead>
       <tbody>
         <tr v-for="day in days">
           <td>
@@ -33,7 +27,7 @@ export default {
           </td>
           <td>
             <router-link v-if="day.has_slots" :to="route(day)" class="btn btn-success btn-sm">
-              View Slots
+              <span class="glyphicon glyphicon-time" aria-hidden="true"></span> View Times
             </router-link>
             <span v-else class="text-danger">This day is not available</span>
           </td>

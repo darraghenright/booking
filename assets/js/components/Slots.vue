@@ -25,17 +25,10 @@ export default {
 
 <template>
   <div>
-    <h2>Times for {{ humanDate }}</h2>
-    <router-link to="/" class="btn btn-default">
+    <h2>Times for {{ humanDate }} <router-link to="/" class="btn btn-default">
       <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> View all days
-    </router-link>
+    </router-link></h2>
     <table class="table table-hover">
-      <thead>
-        <tr>
-          <th style="width: 50%">Time</th>
-          <th>Availablity</th>
-        </tr>
-      </thead>
       <tbody>
         <tr v-for="slot in slots">
           <td>
