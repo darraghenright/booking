@@ -33,7 +33,7 @@ export default {
       <div class="form-inline">
         <div class="form-group">
           <label for="email" class="sr-only">Email</label>
-          <input type="email" class="form-control" placeholder="Enter your email" v-model="email">
+          <input type="email" class="form-control" placeholder="Enter your email" v-model="email" autofocus>
         </div>
         <button type="button" @click="bookSlot" class="btn btn-success" :disabled="!email">
           Book
@@ -43,7 +43,7 @@ export default {
         </button>
       </div>
     </div>
-    <button v-else type="button" name="button" class="btn btn-info" @click="startBooking">
+    <button v-else type="button" name="button" class="btn btn-info btn-sm" @click="startBooking">
       Request Booking
     </button>
   </div>

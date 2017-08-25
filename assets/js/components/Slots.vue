@@ -37,7 +37,7 @@ export default {
     <table class="table table-hover">
       <thead>
         <tr>
-          <th style="width: 50%">Times</th>
+          <th style="width: 50%">Time</th>
           <th>Availablity</th>
         </tr>
       </thead>
@@ -46,7 +46,7 @@ export default {
           <td>{{ humanTime(slot) }}</td>
           <td>
             <book-slot v-if="!slot.is_booked" v-bind:slot_id="slot.id"></book-slot>
-            <span v-else class="text-muted">Booked</span>
+            <span v-else class="label label-danger">Booked</span>
           </td>
         </tr>
       </tbody>
