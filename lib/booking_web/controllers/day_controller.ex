@@ -4,6 +4,8 @@ defmodule BookingWeb.DayController do
   alias Booking.Schedule
   alias Booking.Schedule.Day
 
+  plug BasicAuth, callback: &BookingWeb.basic_auth/3
+
   def index(conn, _params) do
     days = Schedule.list_days()
     render(conn, "index.html", days: days)

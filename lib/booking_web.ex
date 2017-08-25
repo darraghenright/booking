@@ -58,6 +58,18 @@ defmodule BookingWeb do
     end
   end
 
+  def basic_auth(conn, user, pass) do
+
+    u = System.get_env("BOOKING_USER")
+    p = System.get_env("BOOKING_PASS")
+
+    if u === user && p === pass  do
+      conn
+    else
+      Plug.Conn.halt(conn)
+    end
+  end
+
   @doc """
   When used, dispatch to the appropriate controller/view/etc.
   """

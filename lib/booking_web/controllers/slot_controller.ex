@@ -4,6 +4,8 @@ defmodule BookingWeb.SlotController do
   alias Booking.Schedule
   alias Booking.Schedule.Slot
 
+  plug BasicAuth, callback: &BookingWeb.basic_auth/3
+
   def index(conn, _params) do
     slots = Schedule.list_slots()
     render(conn, "index.html", slots: slots)
