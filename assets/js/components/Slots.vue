@@ -4,11 +4,6 @@ import moment from 'moment'
 import BookSlot from './BookSlot.vue'
 
 export default {
-  mounted () {
-    if (!this.slots) {
-      this.$store.dispatch('updateDays')
-    }
-  },
   props: ['date'],
   components: {
     BookSlot

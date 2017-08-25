@@ -5,9 +5,9 @@ import Vue       from 'vue'
 import Vuex      from 'vuex'
 import VueRouter from 'vue-router'
 
-import Booking   from './components/Booking.vue'
-import Schedule  from './components/Schedule.vue'
-import Slots     from './components/Slots.vue'
+import Schedule from './components/Schedule.vue'
+import Days     from './components/Days.vue'
+import Slots    from './components/Slots.vue'
 
 Vue.use(Vuex)
 Vue.use(VueRouter)
@@ -65,14 +65,14 @@ const router = new VueRouter({
     },
     {
       path: '/',
-      component: Schedule
+      component: Days
     }
   ]
 })
 
 const app = new Vue({
   el: '#app',
-  render: h => h(Booking),
+  render: h => h(Schedule),
   router,
   store
 });
