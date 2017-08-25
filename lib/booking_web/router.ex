@@ -17,9 +17,9 @@ defmodule BookingWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    resources "/days", DayController
-    resources "/slots", SlotController
-    
+    resources "/admin/days", DayController
+    resources "/admin/slots", SlotController
+
   end
 
   # Other scopes may use custom stacks.
