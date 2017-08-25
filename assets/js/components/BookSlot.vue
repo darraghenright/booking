@@ -21,6 +21,7 @@ export default {
         slot_id: this.slot_id,
         email: this.email
       })
+      window.alert(`Thanks ${this.email}! You've been booked`)
     }
   }
 }
@@ -42,6 +43,7 @@ export default {
           Cancel
         </button>
       </div>
+      <small class="text-muted">For confirmation only. Your email won't be shared or used for any other purpose.</small>
     </div>
     <button v-else type="button" name="button" class="btn btn-info btn-sm" @click="startBooking">
       Request Booking

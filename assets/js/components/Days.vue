@@ -28,12 +28,14 @@ export default {
       </thead>
       <tbody>
         <tr v-for="day in days">
-          <td>{{ humanDate(day) }}</td>
+          <td>
+            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{ humanDate(day) }}
+          </td>
           <td>
             <router-link v-if="day.has_slots" :to="route(day)" class="btn btn-success btn-sm">
               View Slots
             </router-link>
-            <span v-else class="label label-danger">Fully booked</span>
+            <span v-else class="text-danger">This day is not available</span>
           </td>
         </tr>
       </tbody>

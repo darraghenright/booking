@@ -25,9 +25,9 @@ export default {
 
 <template>
   <div>
-    <h2>Available Slots for {{ humanDate }}</h2>
+    <h2>Times for {{ humanDate }}</h2>
     <router-link to="/" class="btn btn-default">
-      Back to schedule
+      <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> View all days
     </router-link>
     <table class="table table-hover">
       <thead>
@@ -38,10 +38,11 @@ export default {
       </thead>
       <tbody>
         <tr v-for="slot in slots">
-          <td>{{ humanTime(slot) }}</td>
+          <td>
+            <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ humanTime(slot) }}</td>
           <td>
             <book-slot v-if="!slot.is_booked" v-bind:slot_id="slot.id"></book-slot>
-            <span v-else class="label label-danger">Booked</span>
+            <span v-else class="text-danger">This time is not available</span>
           </td>
         </tr>
       </tbody>
