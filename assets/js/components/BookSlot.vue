@@ -5,16 +5,21 @@ export default {
   data () {
     return {
       showForm: false,
-      email: null
+      email: ''
+    }
+  },
+  computed: {
+    isValidBooking () {
+      return !!this.email.length && this.$refs.email.checkValidity()
     }
   },
   methods: {
-    startBooking () {
+    showBookingForm () {
       this.showForm = true
     },
-    cancel () {
+    hideBookingForm () {
       this.showForm = false
-      this.email = null
+      this.email = ''
     },
     bookSlot () {
       this.$store.dispatch('bookSlot', {
@@ -34,18 +39,28 @@ export default {
       <div class="form-inline">
         <div class="form-group">
           <label for="email" class="sr-only">Email</label>
-          <input type="email" class="form-control" placeholder="Enter your email" v-model="email" autofocus>
+          <input type="email"
+                 class="form-control"
+                 placeholder="Enter your email"
+                 autofocus
+                 required
+                 v-model="email"
+                 ref="email">
+
+          <button type="button"
+                  class="btn btn-success"
+                  @click="bookSlot"
+                  :disabled="!isValidBooking">Book</button>
+
+          <button type="button"
+                  class="btn btn-default"
+                  @click="hideBookingForm">Cancel</button>
+
         </div>
-        <button type="button" @click="bookSlot" class="btn btn-success" :disabled="!email">
-          Book
-        </button>
-        <button type="button" @click="cancel" class="btn btn-default">
-          Cancel
-        </button>
       </div>
       <small class="text-muted">For confirmation only. Your email won't be shared or used for any other purpose.</small>
     </div>
-    <button v-else type="button" name="button" class="btn btn-info btn-sm" @click="startBooking">
+    <button v-else type="button" name="button" class="btn btn-info btn-sm" @click="showBookingForm">
       <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Request this time
     </button>
   </div>
