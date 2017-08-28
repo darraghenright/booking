@@ -12,9 +12,31 @@
   </head>
   <body>
     <div class="container">
-      <!-- <header>
-        <h1>Booking</h1>
-      </header> -->
+      <div class="row">
+        <div class="col-md-4 col-xs-4">
+          <img class="img-responsive"
+               src="<%= static_path(@conn, "/images/locate_yourself_logo.jpg")%>"
+               alt="Locate Yourself">
+        </div>
+        <div class="col-md-8 col-xs-8">
+          <p>The 3 channel HD video installation of <strong>They tore the earth and, like a scar, it swallowed them</strong> expands the LP of the same name <a href="http://www.recordedfields.net/records/rfe_02/" target="_blank">released on Recorded Fields Editions</a> in 2014.</p>
+          <p>The surround HD video installation places the viewer at the heart of negotiating and traversing a colonial landscape, its vast and treacherous beauty, with only an insinuation of characters and tragic consequences for all involved.</p>
+          <p class="small text-muted">
+            Wheelchair accessible. Children under the age of 8 must be accompanied by an adult in the exhibition. Enclosed spaces warning for those susceptible to claustrophobia.
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="embed-container">
+            <iframe src="https://player.vimeo.com/video/114122030?autoplay=0&title=0&byline=0&portrait=0"
+                    frameborder="0"
+                    webkitAllowFullScreen
+                    mozallowfullscreen
+                    allowFullScreen></iframe>
+          </div>
+        </div>
+      </div>
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>

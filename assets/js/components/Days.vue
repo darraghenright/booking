@@ -18,7 +18,8 @@ export default {
 
 <template>
   <div>
-    <h2>September Schedule</h2>
+    <h2>Showing from the 7th to 30th September</h2>
+    <p class="lead">Choose a date to view available times and make a booking</p>
     <table class="table table-hover">
       <tbody>
         <tr v-for="day in days">
