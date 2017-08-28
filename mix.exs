@@ -20,7 +20,7 @@ defmodule Booking.Mixfile do
   def application do
     [
       mod: {Booking.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :timex]
     ]
   end
 
@@ -41,7 +41,8 @@ defmodule Booking.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:basic_auth, "~> 2.1.4"}
+      {:basic_auth, "~> 2.1.4"},
+      {:timex, "~> 3.1"}
     ]
   end
 
