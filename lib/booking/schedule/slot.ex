@@ -18,7 +18,7 @@ defmodule Booking.Schedule.Slot do
   def changeset(%Slot{} = slot, attrs) do
     slot
     |> cast(attrs, [:email, :is_booked, :time])
-    |> validate_required([:email, :is_booked, :time])
+    |> validate_required([:is_booked, :time])
     |> validate_format(:email, ~r/@/)
   end
 end
