@@ -1,7 +1,7 @@
 defmodule BookingWeb.ScheduleChannel do
   use Phoenix.Channel
 
-  alias Booking.{Schedule, Slot}
+  alias Booking.Schedule
 
   def join("schedule", _message, socket) do
     {:ok, socket}
