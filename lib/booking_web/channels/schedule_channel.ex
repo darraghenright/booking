@@ -20,6 +20,8 @@ defmodule BookingWeb.ScheduleChannel do
       {:ok, _slot} -> broadcast! socket, "update_days", %{days: Poison.encode!(Schedule.list_days)}
       {:error, changeset} -> IO.puts "error: #{inspect changeset}"
     end
+
+    {:noreply, socket}
   end
 
   def handle_in("unlock_slot", %{"slot_id" => slot_id}, socket) do
@@ -30,6 +32,8 @@ defmodule BookingWeb.ScheduleChannel do
       {:ok, _slot} -> broadcast! socket, "update_days", %{days: Poison.encode!(Schedule.list_days)}
       {:error, changeset} -> IO.puts "error: #{inspect changeset}"
     end
+
+    {:noreply, socket}
   end
 
   def handle_in("book_slot", %{"slot_id" => slot_id, "email" => email}, socket) do
