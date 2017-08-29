@@ -20,7 +20,8 @@ schedule.join()
 
 const store = new Vuex.Store({
   state: {
-    days: []
+    days: [],
+    lock: false
   },
   actions: {
     updateDays (context) {
@@ -35,15 +36,28 @@ const store = new Vuex.Store({
     },
     bookSlot (context, slot) {
       schedule.push('book_slot', slot)
+    },
+    lockSlot (context, slot) {
+      schedule.push('lock_slot', slot)
+    },
+    unlockSlot (context, slot) {
+      schedule.push('unlock_slot', slot)
     }
   },
   mutations: {
     updateDays (state, days) {
       state.days = days
+    },
+    lockSlot (state, slot) {
+      state.lock = slot
+    },
+    unlockSlot (state) {
+      state.lock = false
     }
   },
   getters: {
     days: (state) => state.days.map(({date, has_slots}) => ({date, has_slots})),
+    lock: (state) => state.lock,
     slots: (state) => (date) => {
       for (let day of state.days) {
         if (date === day.date) {

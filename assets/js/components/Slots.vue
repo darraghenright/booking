@@ -17,7 +17,10 @@ export default {
     }
   },
   methods: {
-    humanTime: ({time}) => time.split(':').slice(0,2).join(':') // :P
+    humanTime: ({time}) => time.split(':').slice(0,2).join(':'), // :P
+    isAvailable (slot) {
+      return !slot.is_booked || this.$store.getters.lock === slot.id
+    }
   }
 }
 
@@ -35,7 +38,7 @@ export default {
           <td>
             <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ humanTime(slot) }}</td>
           <td>
-            <book-slot v-if="!slot.is_booked" v-bind:slot_id="slot.id"></book-slot>
+            <book-slot v-if="isAvailable(slot)" v-bind:slot_id="slot.id"></book-slot>
             <span v-else class="text-danger">This time is not available</span>
           </td>
         </tr>

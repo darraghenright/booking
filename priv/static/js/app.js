@@ -17286,7 +17286,8 @@ schedule.join().receive('error', function () {
 
 var store = new _vuex2.default.Store({
   state: {
-    days: []
+    days: [],
+    lock: false
   },
   actions: {
     updateDays: function updateDays(context) {
@@ -17301,11 +17302,23 @@ var store = new _vuex2.default.Store({
     },
     bookSlot: function bookSlot(context, slot) {
       schedule.push('book_slot', slot);
+    },
+    lockSlot: function lockSlot(context, slot) {
+      schedule.push('lock_slot', slot);
+    },
+    unlockSlot: function unlockSlot(context, slot) {
+      schedule.push('unlock_slot', slot);
     }
   },
   mutations: {
     updateDays: function updateDays(state, days) {
       state.days = days;
+    },
+    lockSlot: function lockSlot(state, slot) {
+      state.lock = slot;
+    },
+    unlockSlot: function unlockSlot(state) {
+      state.lock = false;
     }
   },
   getters: {
@@ -17315,6 +17328,9 @@ var store = new _vuex2.default.Store({
             has_slots = _ref.has_slots;
         return { date: date, has_slots: has_slots };
       });
+    },
+    lock: function lock(state) {
+      return state.lock;
     },
     slots: function slots(state) {
       return function (date) {
@@ -17397,16 +17413,31 @@ exports.default = {
   methods: {
     showBookingForm: function showBookingForm() {
       this.showForm = true;
+      this.lockSlot(this.slot_id);
     },
     hideBookingForm: function hideBookingForm() {
       this.showForm = false;
       this.email = '';
+      this.unlockSlot();
+    },
+    lockSlot: function lockSlot(slot) {
+      this.$store.commit('lockSlot', slot);
+      this.$store.dispatch('lockSlot', {
+        slot_id: this.slot_id
+      });
+    },
+    unlockSlot: function unlockSlot() {
+      this.$store.commit('unlockSlot');
+      this.$store.dispatch('unlockSlot', {
+        slot_id: this.slot_id
+      });
     },
     bookSlot: function bookSlot() {
       this.$store.dispatch('bookSlot', {
         slot_id: this.slot_id,
         email: this.email
       });
+      this.$store.commit('unlockSlot');
       window.alert('Thanks ' + this.email + '! You\'ve been booked');
     }
   }
@@ -17473,7 +17504,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-14b27418", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-14b27418", __vue__options__)
+    hotAPI.reload("data-v-14b27418", __vue__options__)
   }
 })()}
 });
@@ -17545,13 +17576,16 @@ exports.default = {
     humanTime: function humanTime(_ref) {
       var time = _ref.time;
       return time.split(':').slice(0, 2).join(':');
-    } }
+    }, isAvailable: function isAvailable(slot) {
+      return !slot.is_booked || this.$store.getters.lock === slot.id;
+    }
+  }
 };
 })()
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h2',[_vm._v("Times for "+_vm._s(_vm.humanDate)+" "),_c('router-link',{staticClass:"btn btn-default",attrs:{"to":"/"}},[_c('span',{staticClass:"glyphicon glyphicon-calendar",attrs:{"aria-hidden":"true"}}),_vm._v(" View all days\n  ")])],1),_vm._v(" "),_c('p',{staticClass:"lead"},[_vm._v("Choose an available time to book. This 3-channel video piece is in a custom built viewing room that accommodates a maximum of three people per 20 minute viewing. You must arrive at the gallery at least 20 minutes before your booking. Late-comers cannot be admitted.")]),_vm._v(" "),_c('table',{staticClass:"table table-hover"},[_c('tbody',_vm._l((_vm.slots),function(slot){return _c('tr',[_c('td',[_c('span',{staticClass:"glyphicon glyphicon-time",attrs:{"aria-hidden":"true"}}),_vm._v(" "+_vm._s(_vm.humanTime(slot)))]),_vm._v(" "),_c('td',[(!slot.is_booked)?_c('book-slot',{attrs:{"slot_id":slot.id}}):_c('span',{staticClass:"text-danger"},[_vm._v("This time is not available")])],1)])}))])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h2',[_vm._v("Times for "+_vm._s(_vm.humanDate)+" "),_c('router-link',{staticClass:"btn btn-default",attrs:{"to":"/"}},[_c('span',{staticClass:"glyphicon glyphicon-calendar",attrs:{"aria-hidden":"true"}}),_vm._v(" View all days\n  ")])],1),_vm._v(" "),_c('p',{staticClass:"lead"},[_vm._v("Choose an available time to book. This 3-channel video piece is in a custom built viewing room that accommodates a maximum of three people per 20 minute viewing. You must arrive at the gallery at least 20 minutes before your booking. Late-comers cannot be admitted.")]),_vm._v(" "),_c('table',{staticClass:"table table-hover"},[_c('tbody',_vm._l((_vm.slots),function(slot){return _c('tr',[_c('td',[_c('span',{staticClass:"glyphicon glyphicon-time",attrs:{"aria-hidden":"true"}}),_vm._v(" "+_vm._s(_vm.humanTime(slot)))]),_vm._v(" "),_c('td',[(_vm.isAvailable(slot))?_c('book-slot',{attrs:{"slot_id":slot.id}}):_c('span',{staticClass:"text-danger"},[_vm._v("This time is not available")])],1)])}))])])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -17560,7 +17594,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-c6a4b278", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-c6a4b278", __vue__options__)
+    hotAPI.reload("data-v-c6a4b278", __vue__options__)
   }
 })()}
 });

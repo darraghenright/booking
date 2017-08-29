@@ -16,16 +16,31 @@ export default {
   methods: {
     showBookingForm () {
       this.showForm = true
+      this.lockSlot(this.slot_id)
     },
     hideBookingForm () {
       this.showForm = false
       this.email = ''
+      this.unlockSlot()
+    },
+    lockSlot (slot) {
+      this.$store.commit('lockSlot', slot)
+      this.$store.dispatch('lockSlot', {
+        slot_id: this.slot_id
+      })
+    },
+    unlockSlot () {
+      this.$store.commit('unlockSlot')
+      this.$store.dispatch('unlockSlot', {
+        slot_id: this.slot_id
+      })
     },
     bookSlot () {
       this.$store.dispatch('bookSlot', {
         slot_id: this.slot_id,
         email: this.email
       })
+      this.$store.commit('unlockSlot')
       window.alert(`Thanks ${this.email}! You've been booked`)
     }
   }
