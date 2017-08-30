@@ -184,6 +184,7 @@ defmodule Booking.Schedule do
   """
   def update_slot(%Slot{} = slot, attrs) do
     slot
+    |> Repo.preload(:seats)
     |> Slot.changeset(attrs)
     |> Repo.update()
   end

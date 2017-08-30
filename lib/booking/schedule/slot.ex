@@ -21,5 +21,6 @@ defmodule Booking.Schedule.Slot do
     |> cast(attrs, [:email, :is_booked, :time])
     |> validate_required([:is_booked, :time])
     |> validate_format(:email, ~r/@/)
+    |> cast_assoc(:seats)
   end
 end

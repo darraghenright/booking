@@ -3,7 +3,7 @@ defmodule Booking.Schedule.Seat do
   import Ecto.Changeset
   alias Booking.Schedule.{Seat, Slot}
 
-  @derive {Poison.Encoder, only: [:id, :is_booked]}
+  @derive {Poison.Encoder, only: [:id, :is_booked, :name]}
 
   schema "seats" do
     field :is_booked, :boolean, default: false
@@ -17,6 +17,6 @@ defmodule Booking.Schedule.Seat do
   def changeset(%Seat{} = seat, attrs) do
     seat
     |> cast(attrs, [:name, :is_booked])
-    |> validate_required([:name, :is_booked])
+    |> validate_required([:is_booked])
   end
 end
