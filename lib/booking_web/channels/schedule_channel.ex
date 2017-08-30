@@ -2,6 +2,7 @@ defmodule BookingWeb.ScheduleChannel do
   use Phoenix.Channel
 
   alias Booking.Schedule
+  alias Booking.Schedule.Slot
 
   def join("schedule", _message, socket) do
     {:ok, socket}
@@ -36,15 +37,14 @@ defmodule BookingWeb.ScheduleChannel do
     {:noreply, socket}
   end
 
-  def handle_in("book_slot", %{"slot_id" => slot_id, "email" => email}, socket) do
+  def handle_in("book_slot", attrs, socket) do
 
     # @TODO chain handler here - remove redunancy
     # transmit error state to client
 
-    slot  = Schedule.get_slot!(slot_id)
-    attrs = %{is_booked: true, email: email}
+    slot = Schedule.get_slot!(attrs["slot"]["id"]);
 
-    case Schedule.update_slot(slot, attrs) do
+    case Schedule.update_slot(slot, attrs["slot"]) do
       {:ok, _slot} -> broadcast! socket, "update_days", %{days: Poison.encode!(Schedule.list_days)}
       {:error, changeset} -> IO.puts "error: #{inspect changeset}"
     end
