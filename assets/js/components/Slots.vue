@@ -39,7 +39,7 @@ export default {
           <td>
             <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ humanTime(slot) }}</td>
           <td>
-            <book-slot v-if="isAvailable(slot)" v-bind:slot="slot"></book-slot>
+            <book-slot v-if="isAvailable(slot)" v-bind:currentSlot="slot"></book-slot>
             <span v-else class="text-danger">This time is not available</span>
           </td>
         </tr>

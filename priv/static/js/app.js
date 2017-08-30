@@ -17404,7 +17404,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = {
-  props: ['slot'],
+  props: ['currentSlot'],
   data: function data() {
     return {
       showForm: false,
@@ -17420,14 +17420,14 @@ exports.default = {
   methods: {
     showBookingForm: function showBookingForm() {
       this.showForm = true;
-      this.lockSlot(this.slot.id);
+      this.lockSlot(this.currentSlot.id);
     },
     hideBookingForm: function hideBookingForm() {
       this.showForm = false;
       this.email = '';
       this.unlockSlot();
     },
-    lockSlot: function lockSlot(slot) {
+    lockSlot: function lockSlot(id) {
       this.$store.commit('lockSlot', id);
       this.$store.dispatch('lockSlot', {
         slot_id: id
@@ -17436,12 +17436,12 @@ exports.default = {
     unlockSlot: function unlockSlot() {
       this.$store.commit('unlockSlot');
       this.$store.dispatch('unlockSlot', {
-        slot_id: this.slot.id
+        slot_id: this.currentSlot.id
       });
     },
     bookSlot: function bookSlot() {
       this.$store.dispatch('bookSlot', {
-        slot_id: this.slot.id,
+        slot_id: this.currentSlot.id,
         email: this.email
       });
       this.$store.commit('unlockSlot');
@@ -17453,7 +17453,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.showForm)?_c('div',{staticClass:"form-inline"},[_c('div',{staticClass:"form-inline"},[_c('div',{staticClass:"form-group"},[_c('label',{staticClass:"sr-only",attrs:{"for":"email"}},[_vm._v("Email")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.email),expression:"email"}],ref:"email",staticClass:"form-control",attrs:{"type":"email","placeholder":"Enter your email","autofocus":"","required":""},domProps:{"value":(_vm.email)},on:{"input":function($event){if($event.target.composing){ return; }_vm.email=$event.target.value}}}),_vm._v(" "),_c('button',{staticClass:"btn btn-success",attrs:{"type":"button","disabled":!_vm.isValidBooking},on:{"click":_vm.bookSlot}},[_vm._v("Book")]),_vm._v(" "),_c('button',{staticClass:"btn btn-default",attrs:{"type":"button"},on:{"click":_vm.hideBookingForm}},[_vm._v("Cancel")])])]),_vm._v(" "),_c('small',{staticClass:"text-muted"},[_vm._v("For confirmation only. Your email won't be shared or used for any other purpose.")]),_vm._v("\n    "+_vm._s(_vm.slot)+"\n  ")]):_c('button',{staticClass:"btn btn-info btn-sm",attrs:{"type":"button","name":"button"},on:{"click":_vm.showBookingForm}},[_c('span',{staticClass:"glyphicon glyphicon-question-sign",attrs:{"aria-hidden":"true"}}),_vm._v(" Request this time\n  ")])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.showForm)?_c('div',{staticClass:"form-inline"},[_c('div',{staticClass:"form-inline"},[_c('div',{staticClass:"form-group"},[_c('label',{staticClass:"sr-only",attrs:{"for":"email"}},[_vm._v("Email")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.email),expression:"email"}],ref:"email",staticClass:"form-control",attrs:{"type":"email","placeholder":"Enter your email","autofocus":"","required":""},domProps:{"value":(_vm.email)},on:{"input":function($event){if($event.target.composing){ return; }_vm.email=$event.target.value}}}),_vm._v(" "),_c('button',{staticClass:"btn btn-success",attrs:{"type":"button","disabled":!_vm.isValidBooking},on:{"click":_vm.bookSlot}},[_vm._v("Book")]),_vm._v(" "),_c('button',{staticClass:"btn btn-default",attrs:{"type":"button"},on:{"click":_vm.hideBookingForm}},[_vm._v("Cancel")])])]),_vm._v(" "),_c('small',{staticClass:"text-muted"},[_vm._v("For confirmation only. Your email won't be shared or used for any other purpose.")]),_vm._v("\n    "+_vm._s(_vm.currentSlot)+"\n  ")]):_c('button',{staticClass:"btn btn-info btn-sm",attrs:{"type":"button","name":"button"},on:{"click":_vm.showBookingForm}},[_c('span',{staticClass:"glyphicon glyphicon-question-sign",attrs:{"aria-hidden":"true"}}),_vm._v(" Request this time\n  ")])])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -17592,7 +17592,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h2',[_vm._v("Times for "+_vm._s(_vm.humanDate))]),_vm._v(" "),_c('p',{staticClass:"lead"},[_vm._v("Choose an available time to make a booking.")]),_vm._v(" "),_c('router-link',{staticClass:"btn btn-default",attrs:{"to":"/"}},[_c('span',{staticClass:"glyphicon glyphicon-calendar",attrs:{"aria-hidden":"true"}}),_vm._v(" View all days\n  ")]),_vm._v(" "),_c('table',{staticClass:"table table-hover"},[_c('tbody',_vm._l((_vm.slots),function(slot){return _c('tr',[_c('td',[_c('span',{staticClass:"glyphicon glyphicon-time",attrs:{"aria-hidden":"true"}}),_vm._v(" "+_vm._s(_vm.humanTime(slot)))]),_vm._v(" "),_c('td',[(_vm.isAvailable(slot))?_c('book-slot',{slot:slot}):_c('span',{staticClass:"text-danger"},[_vm._v("This time is not available")])],1)])}))])],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h2',[_vm._v("Times for "+_vm._s(_vm.humanDate))]),_vm._v(" "),_c('p',{staticClass:"lead"},[_vm._v("Choose an available time to make a booking.")]),_vm._v(" "),_c('router-link',{staticClass:"btn btn-default",attrs:{"to":"/"}},[_c('span',{staticClass:"glyphicon glyphicon-calendar",attrs:{"aria-hidden":"true"}}),_vm._v(" View all days\n  ")]),_vm._v(" "),_c('table',{staticClass:"table table-hover"},[_c('tbody',_vm._l((_vm.slots),function(slot){return _c('tr',[_c('td',[_c('span',{staticClass:"glyphicon glyphicon-time",attrs:{"aria-hidden":"true"}}),_vm._v(" "+_vm._s(_vm.humanTime(slot)))]),_vm._v(" "),_c('td',[(_vm.isAvailable(slot))?_c('book-slot',{attrs:{"currentSlot":slot}}):_c('span',{staticClass:"text-danger"},[_vm._v("This time is not available")])],1)])}))])],1)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)

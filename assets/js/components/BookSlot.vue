@@ -1,7 +1,7 @@
 <script>
 
 export default {
-  props: ['slot'],
+  props: ['currentSlot'],
   data () {
     return {
       showForm: false,
@@ -16,14 +16,14 @@ export default {
   methods: {
     showBookingForm () {
       this.showForm = true
-      this.lockSlot(this.slot.id)
+      this.lockSlot(this.currentSlot.id)
     },
     hideBookingForm () {
       this.showForm = false
       this.email = ''
       this.unlockSlot()
     },
-    lockSlot (slot) {
+    lockSlot (id) {
       this.$store.commit('lockSlot', id)
       this.$store.dispatch('lockSlot', {
         slot_id: id
@@ -32,12 +32,12 @@ export default {
     unlockSlot () {
       this.$store.commit('unlockSlot')
       this.$store.dispatch('unlockSlot', {
-        slot_id: this.slot.id
+        slot_id: this.currentSlot.id
       })
     },
     bookSlot () {
       this.$store.dispatch('bookSlot', {
-        slot_id: this.slot.id,
+        slot_id: this.currentSlot.id,
         email: this.email
       })
       this.$store.commit('unlockSlot')
@@ -74,7 +74,7 @@ export default {
         </div>
       </div>
       <small class="text-muted">For confirmation only. Your email won't be shared or used for any other purpose.</small>
-      {{ slot }}
+      {{ currentSlot }}
     </div>
     <button v-else type="button" name="button" class="btn btn-info btn-sm" @click="showBookingForm">
       <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Request this time
