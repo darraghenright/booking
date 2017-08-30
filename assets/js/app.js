@@ -64,7 +64,14 @@ const store = new Vuex.Store({
           return day.slots
         }
       }
-    },
+    }
+  },
+})
+
+window.addEventListener('unload', () => {
+  let slotId = store.getters.lock
+  if (slotId) {
+    schedule.push('unlock_slot', { slot_id: slotId })
   }
 })
 
