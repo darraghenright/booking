@@ -11,5 +11,6 @@ defmodule Booking.Repo.Migrations.CreateSlots do
       timestamps()
     end
 
+    create index(:slots, [:day_id])
   end
 end

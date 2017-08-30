@@ -20,7 +20,7 @@ defmodule Booking.Schedule do
   def list_days do
     Day
     |> Repo.all()
-    |> Repo.preload(:slots)
+    |> Repo.preload(slots: :seats)
     |> Enum.map(&calculate_has_slots/1)
   end
 

@@ -1,5 +1,5 @@
 alias Booking.Repo
-alias Booking.Schedule.{Day, Slot}
+alias Booking.Schedule.{Day, Seat, Slot}
 
 use Timex
 
@@ -82,9 +82,11 @@ opening_times = [
   ]
 ]
 
+seats = [%Seat{}, %Seat{}, %Seat{}]
+
 create_days = fn [from|[until]] ->
   times = Timex.Interval.new(from: from, until: until, step: [minutes: 20])
-  slots = map(times, &(%Slot{time: to_time(&1)}))
+  slots = map(times, &(%Slot{time: to_time(&1), seats: seats}))
   %Day{date: to_date(from), slots: slots}
 end
 
