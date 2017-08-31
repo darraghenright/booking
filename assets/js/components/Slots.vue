@@ -37,10 +37,17 @@ export default {
       <tbody>
         <tr v-for="slot in slots">
           <td>
-            <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ humanTime(slot) }}</td>
-          <td>
-            <book-slot v-if="isAvailable(slot)" v-bind:currentSlot="slot"></book-slot>
-            <span v-else class="text-danger">This time is not available</span>
+            <div class="row">
+              <div class="col-xs-3">
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ humanTime(slot) }}
+              </div>
+              <book-slot v-if="isAvailable(slot)" v-bind:currentSlot="slot"></book-slot>
+              <div v-else class="col-xs-9">
+                <div class="pull-right  text-danger">
+                  This time is not available
+                </div>
+              </div>
+            </div>
           </td>
         </tr>
       </tbody>

@@ -73,16 +73,8 @@ export default {
 
 <template>
   <div>
-    <div v-if="showForm" class="well">
-      <h4>Book this time</h4>
-      <p>You may book up to {{ availableSeats }} seats for this slot. Please enter a name for each attendee.</p>
-      <div class="form-group" v-for="seat in currentSlot.seats" v-if="!seat.is_booked">
-        <label for="email" class="sr-only">Email</label>
-        <input type="text"
-               class="form-control"
-               placeholder="Enter a name"
-               v-model="seat.name">
-      </div>
+    <div v-if="showForm" class="col-xs-12">
+      <h4>Book this Time</h4>
       <p>Your email is required to confirm your booking. It will not be shared or used for any other purpose.</p>
       <div class="form-group">
         <label for="email" class="sr-only">Email</label>
@@ -92,6 +84,14 @@ export default {
                required
                v-model="email"
                ref="email">
+      </div>
+      <p>You may book up to {{ availableSeats }} seats for this slot. Please enter a name for each attendee.</p>
+      <div class="form-group" v-for="seat in currentSlot.seats" v-if="!seat.is_booked">
+        <label for="email" class="sr-only">Email</label>
+        <input type="text"
+               class="form-control"
+               placeholder="Enter a name"
+               v-model="seat.name">
       </div>
       <div class="form-group">
         <button type="button"
@@ -104,8 +104,12 @@ export default {
                 @click="hideBookingForm">Cancel</button>
       </div>
     </div>
-    <button v-else type="button" name="button" class="btn btn-info btn-sm" @click="showBookingForm">
-      <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Request this time
-    </button>
+    <div class="col-xs-9" v-else>
+      <div class="pull-right">
+        <button type="button" name="button" class="btn btn-info btn-sm" @click="showBookingForm">
+          <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Request this time
+        </button>
+      </div>
+    </div>
   </div>
 </template>
