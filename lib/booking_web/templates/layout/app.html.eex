@@ -39,7 +39,9 @@
       </div>
       <main role="main">
         <div class="alert alert-warning">
+          <p class="lead">
           This 3-channel video piece is in a custom built viewing room that accommodates a maximum of 3 people per 20 minute viewing. You must arrive at the gallery at least 20 minutes before your booking.   Late-comers cannot be admitted.
+          </p>
         </div>
         <%= render @view_module, @view_template, assigns %>
       </main>
