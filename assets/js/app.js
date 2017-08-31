@@ -28,7 +28,9 @@ const store = new Vuex.Store({
       schedule.push('update_days')
       schedule.on('update_days', data => {
         try {
-          context.commit('updateDays', JSON.parse(data.days))
+          if (!context.getters.lock) {
+            context.commit('updateDays', JSON.parse(data.days))
+          }
         } catch (e) {
           window.alert('Error updating data!')
         }

@@ -17294,7 +17294,9 @@ var store = new _vuex2.default.Store({
       schedule.push('update_days');
       schedule.on('update_days', function (data) {
         try {
-          context.commit('updateDays', JSON.parse(data.days));
+          if (!context.getters.lock) {
+            context.commit('updateDays', JSON.parse(data.days));
+          }
         } catch (e) {
           window.alert('Error updating data!');
         }
