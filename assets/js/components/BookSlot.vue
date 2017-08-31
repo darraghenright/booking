@@ -75,12 +75,7 @@ export default {
 <template>
   <div>
     <div v-if="showForm" class="time-booking-form">
-      <div>
-        <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ humanTime(currentSlot) }}
-      </div>
-      <hr>
-      <h4>Book this Time</h4>
-      <p>Your email is required to confirm your booking. It will not be shared or used for any other purpose.</p>
+      <p class="small">Your email is required to confirm your booking. It will not be shared or used for any other purpose.</p>
       <div class="form-group">
         <label for="email" class="sr-only">Email</label>
         <input type="email"
@@ -91,7 +86,7 @@ export default {
                v-model="email"
                ref="email">
       </div>
-      <p>You may book up to {{ availableSeats }} seats for this slot. Please enter a name for each person attending.</p>
+      <p class="small">You may book up to <strong>{{ availableSeats }}</strong> seats for this slot. Please enter a name for each person attending.</p>
       <div class="form-group" v-for="seat in currentSlot.seats" v-if="!seat.is_booked">
         <label for="email" class="sr-only">Email</label>
         <input type="text"
