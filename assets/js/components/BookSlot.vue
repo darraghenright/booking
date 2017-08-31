@@ -10,11 +10,12 @@ export default {
   },
   computed: {
     availableSeats () {
-      return this.currentSlot.seats.length
+      return this.currentSlot.seats
+        .filter(seat => !seat.is_booked).length
     },
     isValidBooking () {
       return !!this.email.length
-          && this.currentSlot.seats.filter(seat => seat.name).length
+          && this.currentSlot.seats.filter(seat => !!seat.name).length
           && this.$refs.email.checkValidity()
     }
   },
@@ -41,20 +42,28 @@ export default {
       })
     },
     bookSlot () {
-
       let slot = this.currentSlot;
-      slot.email = this.email;
-      slot.is_booked = true;
+
       slot.seats = slot.seats
         .map(seat => {
-          seat.is_booked = !!seat.name
+          if (!!seat.name) {
+            seat.is_booked = true
+            if (!seat.email) {
+              seat.email = this.email
+            }
+          }
           return seat
         })
 
+      slot.is_booked = (slot.seats.filter(seat => seat.is_booked).length === 3)
+
+      console.log('slot booked!', slot)
       this.$store.dispatch('bookSlot', {
         slot: slot
       })
       this.$store.commit('unlockSlot')
+      this.showForm = false
+      this.email = ''
       window.alert(`Thanks ${this.email}! You've been booked`)
     }
   }
@@ -67,7 +76,7 @@ export default {
     <div v-if="showForm" class="well">
       <h4>Book this time</h4>
       <p>You may book up to {{ availableSeats }} seats for this slot. Please enter a name for each attendee.</p>
-      <div class="form-group" v-for="seat in currentSlot.seats" v-if="!currentSlot.seats.is_booked">
+      <div class="form-group" v-for="seat in currentSlot.seats" v-if="!seat.is_booked">
         <label for="email" class="sr-only">Email</label>
         <input type="text"
                class="form-control"
@@ -80,7 +89,6 @@ export default {
         <input type="email"
                class="form-control"
                placeholder="Enter your email"
-               autofocus
                required
                v-model="email"
                ref="email">

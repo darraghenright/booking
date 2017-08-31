@@ -6,7 +6,6 @@ defmodule Booking.Schedule.Slot do
   @derive {Poison.Encoder, only: [:id, :time, :is_booked, :seats]}
 
   schema "slots" do
-    field :email, :string
     field :is_booked, :boolean, default: false
     field :time, :time
     belongs_to :day, Day
@@ -18,9 +17,8 @@ defmodule Booking.Schedule.Slot do
   @doc false
   def changeset(%Slot{} = slot, attrs) do
     slot
-    |> cast(attrs, [:email, :is_booked, :time])
+    |> cast(attrs, [:is_booked, :time])
     |> validate_required([:is_booked, :time])
-    |> validate_format(:email, ~r/@/)
     |> cast_assoc(:seats)
   end
 end

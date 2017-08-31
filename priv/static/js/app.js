@@ -17414,11 +17414,13 @@ exports.default = {
 
   computed: {
     availableSeats: function availableSeats() {
-      return this.currentSlot.seats.length;
+      return this.currentSlot.seats.filter(function (seat) {
+        return !seat.is_booked;
+      }).length;
     },
     isValidBooking: function isValidBooking() {
       return !!this.email.length && this.currentSlot.seats.filter(function (seat) {
-        return seat.name;
+        return !!seat.name;
       }).length && this.$refs.email.checkValidity();
     }
   },
@@ -17445,19 +17447,31 @@ exports.default = {
       });
     },
     bookSlot: function bookSlot() {
+      var _this = this;
 
       var slot = this.currentSlot;
-      slot.email = this.email;
-      slot.is_booked = true;
+
       slot.seats = slot.seats.map(function (seat) {
-        seat.is_booked = !!seat.name;
+        if (!!seat.name) {
+          seat.is_booked = true;
+          if (!seat.email) {
+            seat.email = _this.email;
+          }
+        }
         return seat;
       });
 
+      slot.is_booked = slot.seats.filter(function (seat) {
+        return seat.is_booked;
+      }).length === 3;
+
+      console.log('slot booked!', slot);
       this.$store.dispatch('bookSlot', {
         slot: slot
       });
       this.$store.commit('unlockSlot');
+      this.showForm = false;
+      this.email = '';
       window.alert('Thanks ' + this.email + '! You\'ve been booked');
     }
   }
@@ -17466,7 +17480,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.showForm)?_c('div',{staticClass:"well"},[_c('h4',[_vm._v("Book this time")]),_vm._v(" "),_c('p',[_vm._v("You may book up to "+_vm._s(_vm.availableSeats)+" seats for this slot. Please enter a name for each attendee.")]),_vm._v(" "),_vm._l((_vm.currentSlot.seats),function(seat){return (!_vm.currentSlot.seats.is_booked)?_c('div',{staticClass:"form-group"},[_c('label',{staticClass:"sr-only",attrs:{"for":"email"}},[_vm._v("Email")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(seat.name),expression:"seat.name"}],staticClass:"form-control",attrs:{"type":"text","placeholder":"Enter a name"},domProps:{"value":(seat.name)},on:{"input":function($event){if($event.target.composing){ return; }seat.name=$event.target.value}}})]):_vm._e()}),_vm._v(" "),_c('p',[_vm._v("Your email is required to confirm your booking. It will not be shared or used for any other purpose.")]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{staticClass:"sr-only",attrs:{"for":"email"}},[_vm._v("Email")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.email),expression:"email"}],ref:"email",staticClass:"form-control",attrs:{"type":"email","placeholder":"Enter your email","autofocus":"","required":""},domProps:{"value":(_vm.email)},on:{"input":function($event){if($event.target.composing){ return; }_vm.email=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-success",attrs:{"type":"button","disabled":!_vm.isValidBooking},on:{"click":_vm.bookSlot}},[_vm._v("Book")]),_vm._v(" "),_c('button',{staticClass:"btn btn-default",attrs:{"type":"button"},on:{"click":_vm.hideBookingForm}},[_vm._v("Cancel")])])],2):_c('button',{staticClass:"btn btn-info btn-sm",attrs:{"type":"button","name":"button"},on:{"click":_vm.showBookingForm}},[_c('span',{staticClass:"glyphicon glyphicon-question-sign",attrs:{"aria-hidden":"true"}}),_vm._v(" Request this time\n  ")])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.showForm)?_c('div',{staticClass:"well"},[_c('h4',[_vm._v("Book this time")]),_vm._v(" "),_c('p',[_vm._v("You may book up to "+_vm._s(_vm.availableSeats)+" seats for this slot. Please enter a name for each attendee.")]),_vm._v(" "),_vm._l((_vm.currentSlot.seats),function(seat){return (!seat.is_booked)?_c('div',{staticClass:"form-group"},[_c('label',{staticClass:"sr-only",attrs:{"for":"email"}},[_vm._v("Email")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(seat.name),expression:"seat.name"}],staticClass:"form-control",attrs:{"type":"text","placeholder":"Enter a name"},domProps:{"value":(seat.name)},on:{"input":function($event){if($event.target.composing){ return; }seat.name=$event.target.value}}})]):_vm._e()}),_vm._v(" "),_c('p',[_vm._v("Your email is required to confirm your booking. It will not be shared or used for any other purpose.")]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{staticClass:"sr-only",attrs:{"for":"email"}},[_vm._v("Email")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.email),expression:"email"}],ref:"email",staticClass:"form-control",attrs:{"type":"email","placeholder":"Enter your email","required":""},domProps:{"value":(_vm.email)},on:{"input":function($event){if($event.target.composing){ return; }_vm.email=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-success",attrs:{"type":"button","disabled":!_vm.isValidBooking},on:{"click":_vm.bookSlot}},[_vm._v("Book")]),_vm._v(" "),_c('button',{staticClass:"btn btn-default",attrs:{"type":"button"},on:{"click":_vm.hideBookingForm}},[_vm._v("Cancel")])])],2):_c('button',{staticClass:"btn btn-info btn-sm",attrs:{"type":"button","name":"button"},on:{"click":_vm.showBookingForm}},[_c('span',{staticClass:"glyphicon glyphicon-question-sign",attrs:{"aria-hidden":"true"}}),_vm._v(" Request this time\n  ")])])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -17614,7 +17628,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-c6a4b278", __vue__options__)
   } else {
-    hotAPI.reload("data-v-c6a4b278", __vue__options__)
+    hotAPI.rerender("data-v-c6a4b278", __vue__options__)
   }
 })()}
 });
