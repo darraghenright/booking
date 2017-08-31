@@ -20,6 +20,7 @@ export default {
     }
   },
   methods: {
+    humanTime: ({time}) => time.split(':').slice(0,2).join(':'), // :P
     showBookingForm () {
       this.showForm = true
       this.lockSlot(this.currentSlot.id)
@@ -74,7 +75,10 @@ export default {
 <template>
   <div>
     <div v-if="showForm" class="time-booking-form">
-      
+      <div>
+        <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ humanTime(currentSlot) }}
+      </div>
+      <hr>
       <h4>Book this Time</h4>
       <p>Your email is required to confirm your booking. It will not be shared or used for any other purpose.</p>
       <div class="form-group">
@@ -83,10 +87,11 @@ export default {
                class="form-control"
                placeholder="Enter your email"
                required
+               autofocus
                v-model="email"
                ref="email">
       </div>
-      <p>You may book up to {{ availableSeats }} seats for this slot. Please enter a name for each attendee.</p>
+      <p>You may book up to {{ availableSeats }} seats for this slot. Please enter a name for each person attending.</p>
       <div class="form-group" v-for="seat in currentSlot.seats" v-if="!seat.is_booked">
         <label for="email" class="sr-only">Email</label>
         <input type="text"
