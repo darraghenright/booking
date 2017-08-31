@@ -73,7 +73,8 @@ export default {
 
 <template>
   <div>
-    <div v-if="showForm" class="col-xs-12">
+    <div v-if="showForm" class="time-booking-form">
+      
       <h4>Book this Time</h4>
       <p>Your email is required to confirm your booking. It will not be shared or used for any other purpose.</p>
       <div class="form-group">
