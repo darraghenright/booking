@@ -38,9 +38,11 @@
         </div>
       </div>
       <main role="main">
-        <div class="alert alert-warning">
-          <p class="lead">
-          This 3-channel video piece is in a custom built viewing room that accommodates a maximum of 3 people per 20 minute viewing. You must arrive at the gallery at least 20 minutes before your booking.   Late-comers cannot be admitted.
+        <div class="alert alert-warning lead">
+          <p>
+          This 3-channel video piece is in a custom built viewing room that accommodates a maximum of 3 people per 20 minute viewing. You must arrive at the gallery at least 20 minutes before your booking.   Late-comers cannot be admitted.</p>
+          <p>
+          Wheelchair accessible. Children under the age of 8 must be accompanied by an adult in the exhibition. Enclosed spaces warning for those susceptible to claustrophobia.
           </p>
         </div>
         <%= render @view_module, @view_template, assigns %>
