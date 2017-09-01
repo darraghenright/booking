@@ -21,9 +21,6 @@
         <div class="col-md-8 col-xs-8">
           <p>The 3 channel HD video installation of <strong>They tore the earth and, like a scar, it swallowed them</strong> expands the LP of the same name <a href="http://www.recordedfields.net/records/rfe_02/" target="_blank">released on Recorded Fields Editions</a> in 2014.</p>
           <p>The surround HD video installation places the viewer at the heart of negotiating and traversing a colonial landscape, its vast and treacherous beauty, with only an insinuation of characters and tragic consequences for all involved.</p>
-          <p class="small text-muted">
-            Wheelchair accessible. Children under the age of 8 must be accompanied by an adult in the exhibition. Enclosed spaces warning for those susceptible to claustrophobia.
-          </p>
         </div>
       </div>
       <div class="row">
@@ -49,5 +46,23 @@
       </main>
     </div>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted text-center">
+          <a target="_blank" href="http://recordedfields.net/robert-curgenven/">
+            recordedfields.net
+          </a> |
+          <a target="_blank" href="https://twitter.com/robertcurgenven">
+            @robertcurgenven
+          </a> |
+          <a target="_blank" href="https://merchkitty.com/">
+            merchkitty.com
+          </a> |
+          <a target="_blank" href="https://twitter.com/merckitty">
+            @merchkitty
+          </a>
+        </p>
+      </div>
+    </footer>
   </body>
 </html>
